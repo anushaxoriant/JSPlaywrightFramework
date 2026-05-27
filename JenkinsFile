@@ -27,6 +27,14 @@ pipeline {
             }
         }
 
+        stage('Verify Playwright Installation') {
+
+            steps {
+
+                bat 'npm list @playwright/test'
+            }
+        }
+
         stage('Install Browsers') {
 
             steps {
@@ -35,33 +43,12 @@ pipeline {
             }
         }
 
-        stage('Run Tests') {
+        stage('Execute Tests') {
 
             steps {
 
-                bat 'npx playwright test --reporter=html'
+                bat 'npx playwright test'
             }
-        }
-    }
-
-    post {
-
-        always {
-
-            publishHTML(target: [
-
-                reportDir: 'playwright-report',
-
-                reportFiles: 'index.html',
-
-                reportName: 'Playwright HTML Report',
-
-                keepAll: true,
-
-                alwaysLinkToLastBuild: true,
-
-                allowMissing: false
-            ])
         }
     }
 }
