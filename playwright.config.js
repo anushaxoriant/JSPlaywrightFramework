@@ -18,6 +18,6 @@ module.exports = {
     },
 
     reporter: [
-        ['html']
-    ]
+    ['html', { open: 'never' }]
+]
 };
