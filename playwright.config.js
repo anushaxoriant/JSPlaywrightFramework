@@ -4,17 +4,23 @@ module.exports = {
 
     retries: 1,
 
+    reporter: [
+
+        ['list'],
+
+        ['html', {
+
+            outputFolder: 'playwright-report',
+
+            open: 'never'
+        }]
+    ],
+
     use: {
 
         browserName: 'chromium',
 
-        headless: false,
-
-        screenshot:
-            'only-on-failure',
-
-        video:
-            'retain-on-failure'
+        headless: false
     },
 
     reporter: [
