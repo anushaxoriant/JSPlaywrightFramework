@@ -8,6 +8,7 @@ pipeline {
     }
 
     stages {
+
         stage('Clone Repository') {
 
             steps {
@@ -17,6 +18,7 @@ pipeline {
                 url: 'https://github.com/anushaxoriant/JSPlaywrightFramework.git'
             }
         }
+
         stage('Install Dependencies') {
 
             steps {
@@ -24,21 +26,24 @@ pipeline {
                 bat 'npm install'
             }
         }
-        stage('Install Playwright Browsers') {
+
+        stage('Install Browsers') {
 
             steps {
 
                 bat 'npx playwright install'
             }
         }
-        stage('Execute Playwright Tests') {
+
+        stage('Run Tests') {
 
             steps {
 
-                bat 'npx playwright test'
+                bat 'npx playwright test --reporter=html'
             }
         }
     }
+
     post {
 
         always {
@@ -49,9 +54,13 @@ pipeline {
 
                 reportFiles: 'index.html',
 
-                reportName: 'Playwright Report',
+                reportName: 'Playwright HTML Report',
 
-                keepAll: true
+                keepAll: true,
+
+                alwaysLinkToLastBuild: true,
+
+                allowMissing: false
             ])
         }
     }
